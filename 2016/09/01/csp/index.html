@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="coding box"><title>Content Security Policy | kirs</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style-min.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Satisfy"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Content Security Policy</h1><a id="logo" href="/.">kirs</a><!--a#logo(href=url_for('.'))--><!--  img#logoimg(src=url_for('http://ww2.sinaimg.cn/large/006y8lVagw1f7by7hpploj31kw0cln0r.jpg'))--><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/collect/"><i class="fa fa-coffee"> 收藏</i></a><a href="/recommend/"><i class="fa fa-desktop"> 推荐</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Content Security Policy</h1><div class="post-meta">Sep 1, 2016<span> | </span><span class="category"><a href="/categories/html/">html</a></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@2.3/bsz.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>首先，W3C的Content Security Policy，简称CSP，这个规范与内容安全有关，主要是用来定义页面可以加载哪些资源，减少XSS的发生，csp各浏览器支持情况<a id="more"></a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">响应头</th>
+<th style="text-align:center">Chrome</th>
+<th style="text-align:center">Firefox</th>
+<th style="text-align:center">Safari</th>
+<th style="text-align:center">IE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Content-Security-Policy</td>
+<td style="text-align:center">25+</td>
+<td style="text-align:center">23+</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">X-Content-Security-Policy</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-4.0+</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">10.0（有限的）</td>
+</tr>
+<tr>
+<td style="text-align:center">X-Webkit-CSP</td>
+<td style="text-align:center">14+</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">6+</td>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>如果使用csp使用，只要在服务端响应头加入 <code>Content-Security-Policy</code> 字段即可，以php（safari）为例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">  header(<span class="string">"X-WebKit-CSP: script-src none"</span>);</span><br><span class="line">  <span class="comment">//介于safari只支持X-Webkit-CSP。服务端csp控制浏览器无法加载脚本</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;script&gt;alert(<span class="string">"hello"</span>);&lt;/script&gt;<span class="comment">//示例脚本</span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>浏览器端<br><img src="http://ww4.sinaimg.cn/large/006y8lVagw1f7e3yakv4aj312002ita0.jpg" alt></p>
+<h3 id="csp指令"><a href="#csp指令" class="headerlink" title="csp指令"></a>csp指令</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">default-src</td>
+<td style="text-align:center">定义针对所有类型（js、image、css、web font，ajax请求，iframe，多媒体等）资源的默认加载策略，某类型资源如果没有单独定义策略，就使用默认的</td>
+</tr>
+<tr>
+<td style="text-align:center">script-src</td>
+<td style="text-align:center">定义针对JavaScript的加载策略</td>
+</tr>
+<tr>
+<td style="text-align:center">style-src</td>
+<td style="text-align:center">定义针对样式的加载策略</td>
+</tr>
+<tr>
+<td style="text-align:center">img-src</td>
+<td style="text-align:center">定义针对图片的加载策略</td>
+</tr>
+<tr>
+<td style="text-align:center">connect-src</td>
+<td style="text-align:center">针对Ajax、WebSocket等请求的加载策略。不允许的情况下，浏览器会模拟一个状态为400的响应</td>
+</tr>
+<tr>
+<td style="text-align:center">font-src</td>
+<td style="text-align:center">针对Web Font的加载策略</td>
+</tr>
+<tr>
+<td style="text-align:center">object-src</td>
+<td style="text-align:center">针对\&lt;object>\&lt;embed>或\&lt;applet>等标签引入的flash等插件的加载策略</td>
+</tr>
+<tr>
+<td style="text-align:center">media-src</td>
+<td style="text-align:center">针对<audio>或<video>等标签引入的html多媒体的加载策略</video></audio></td>
+</tr>
+<tr>
+<td style="text-align:center">frame-src</td>
+<td style="text-align:center">针对frame的加载策略</td>
+</tr>
+<tr>
+<td style="text-align:center">sandbox</td>
+<td style="text-align:center">对请求的资源启用sandbox（类似于iframe的sandbox属性）</td>
+</tr>
+<tr>
+<td style="text-align:center">report-uri</td>
+<td style="text-align:center">告诉浏览器如果请求的资源不被策略允许时，往哪个地址提交日志信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="指令值"><a href="#指令值" class="headerlink" title="指令值"></a>指令值</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">指令值</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">允许任何内容</td>
+</tr>
+<tr>
+<td style="text-align:center">none</td>
+<td style="text-align:center">不允许任何内容</td>
+</tr>
+<tr>
+<td style="text-align:center">self</td>
+<td style="text-align:center">允许来自相同来源的内容（相同的协议、域名和端口）</td>
+</tr>
+<tr>
+<td style="text-align:center">data</td>
+<td style="text-align:center">允许data:协议（例如base64编码的图片）</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://www.a.com" target="_blank" rel="noopener">www.a.com</a></td>
+<td style="text-align:center">允许加载指定域名的资源</td>
+</tr>
+<tr>
+<td style="text-align:center">*.a.com</td>
+<td style="text-align:center">允许加载a.com任何子域的资源</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://img.com" target="_blank" rel="noopener">https://img.com</a></td>
+<td style="text-align:center">允许加载img.com的https资源（协议需匹配）</td>
+</tr>
+<tr>
+<td style="text-align:center">https:</td>
+<td style="text-align:center">允许加载https资源</td>
+</tr>
+<tr>
+<td style="text-align:center">unsafe-inline</td>
+<td style="text-align:center">允许加载inline资源（例如常见的style属性，onclick，inline js和inline css等等）</td>
+</tr>
+<tr>
+<td style="text-align:center">unsafe-eval</td>
+<td style="text-align:center">允许加载动态js代码，例如eval()</td>
+</tr>
+</tbody>
+</table>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>生成csp网站：<a href="http://cspisawesome.com/content_security_policies" target="_blank" rel="noopener">http://cspisawesome.com/content_security_policies</a></p>
+</div><div class="tags"><a href="/tags/csp/">csp</a></div><div class="post-nav"><a href="/2016/09/06/git学习笔记/" class="pre">Git学习笔记</a><a href="/2016/08/31/linux退出/" class="next">Linux退出vim的几种方法</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C#</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动通信/">移动通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/cmd/" style="font-size: 15px;">cmd</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/css3/" style="font-size: 15px;">css3</a> <a href="/tags/csp/" style="font-size: 15px;">csp</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/欢迎/" style="font-size: 15px;">欢迎</a> <a href="/tags/homebrew/" style="font-size: 15px;">homebrew</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/lcd/" style="font-size: 15px;">lcd</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/anaconda/" style="font-size: 15px;">anaconda</a> <a href="/tags/jupyter/" style="font-size: 15px;">jupyter</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/mongoDB/" style="font-size: 15px;">mongoDB</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/c/" style="font-size: 15px;">c#</a> <a href="/tags/axios/" style="font-size: 15px;">axios</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/wordpress/" style="font-size: 15px;">wordpress</a> <a href="/tags/minecraft/" style="font-size: 15px;">minecraft</a> <a href="/tags/qualcomm/" style="font-size: 15px;">qualcomm</a> <a href="/tags/通信/" style="font-size: 15px;">通信</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.zealer.com" title="zealer" target="_blank">zealer</a><ul></ul><a href="http://www.ifanr.com" title="ifanr" target="_blank">ifanr</a><ul></ul><a href="http://cn.engadget.com" title="engadget" target="_blank">engadget</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© 2019 ♥ <a href="/." rel="nofollow">kirs.</a> Proudly Powered by<a rel="nofollow" target="_blank" href="https://yeardany.cn"> yeardany.</a></div></div></div><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><script type="text/javascript" src="../js/comment.js"></script><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
