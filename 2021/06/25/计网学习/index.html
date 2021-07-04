@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="coding box"><title>计算机网络简单学习 | kirs</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style-min.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Satisfy"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">计算机网络简单学习</h1><a id="logo" href="/.">kirs</a><!--a#logo(href=url_for('.'))--><!--  img#logoimg(src=url_for('http://ww2.sinaimg.cn/large/006y8lVagw1f7by7hpploj31kw0cln0r.jpg'))--><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/collect/"><i class="fa fa-coffee"> 收藏</i></a><a href="/recommend/"><i class="fa fa-desktop"> 推荐</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">计算机网络简单学习</h1><div class="post-meta">Jun 25, 2021<span> | </span><span class="category"><a href="/categories/essay/">essay</a></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@2.3/bsz.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>整理了一些面试常问到的计网问题</p>
+<h2 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h2><p>网络都是建立在<strong><code>TCP/IP</code></strong>协议族之上的，属于7层模型应用层，其他常见包括<code>http、ftp、ssh、dns</code>等</p>
+<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><ul>
+<li>第一次，客户端发送一些数据到 server 端，要求建立连接 </li>
+<li>第二次，server 端收到，然后发送一些数据回去，表明可以建立连接 </li>
+<li>第三次，客户端收到并检查返回的信息，若信息正确，再发送数据到 server 端，告知建立连接成功</li>
+</ul>
+<p>http1.1版本支持持久链接<code>keep-alive</code>， 只要双方不明确终止链接，链接就会保持，每次发送数据不再需要<strong>三次握手</strong></p>
+<h2 id="请求报文内容"><a href="#请求报文内容" class="headerlink" title="请求报文内容"></a>请求报文内容</h2><ul>
+<li><strong>Method</strong></li>
+<li>Url</li>
+<li>协议版本</li>
+<li><strong>Head 头部字段</strong></li>
+<li>内容实体</li>
+</ul>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><ul>
+<li>GET：获取</li>
+<li>POST：新增</li>
+<li>PUT：提交</li>
+<li>HEAD：获取 Head 信息，不返回报文主题</li>
+<li>DELETE：删除</li>
+<li>OPTIONS、TRACE、CONNECT</li>
+</ul>
+<h2 id="响应报文内容"><a href="#响应报文内容" class="headerlink" title="响应报文内容"></a>响应报文内容</h2><ul>
+<li>协议版本</li>
+<li><strong>状态码</strong></li>
+<li>状态码原因短语</li>
+<li><strong>Head 头部字段</strong></li>
+<li>响应内容</li>
+</ul>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><ul>
+<li><strong>1xx</strong> 请求正在处理</li>
+<li><strong>2xx</strong> 成功</li>
+<li><strong>3xx</strong> 重定向</li>
+<li><strong>4xx</strong> 客户端错误</li>
+<li><strong>5xx</strong> 服务端错误</li>
+</ul>
+<h4 id="2xx"><a href="#2xx" class="headerlink" title="2xx"></a><code>2xx</code></h4><ul>
+<li><code>200</code>成功</li>
+<li><code>204</code>成功、但没有返回实体</li>
+<li><code>206</code>范围请求</li>
+</ul>
+<h4 id="3xx"><a href="#3xx" class="headerlink" title="3xx"></a><code>3xx</code></h4><ul>
+<li><code>301</code>永久重定向</li>
+<li><code>302</code>临时重定向</li>
+<li><code>304</code>协商缓存，资源找到，但本地缓存未过期，不会返回任何主体</li>
+</ul>
+<h4 id="4xx"><a href="#4xx" class="headerlink" title="4xx"></a><code>4xx</code></h4><ul>
+<li><code>400</code>请求语法错误，服务器无法理解</li>
+<li><code>401</code>请求需认证，登录</li>
+<li><code>403</code>没有访问权限，服务端理解请求，但拒绝执行此请求，如防盗链</li>
+<li><code>404</code>资源未找到</li>
+<li><code>405</code>客户端请求方法被禁止</li>
+</ul>
+<h4 id="5xx"><a href="#5xx" class="headerlink" title="5xx"></a><code>5xx</code></h4><ul>
+<li><code>500</code>服务端在执行时发生错误</li>
+<li><code>501</code>服务端不支持请求的功能，无法完成请求</li>
+<li><code>502</code>作为网关或者代理时，从远程服务器收到了一个无效的响应</li>
+<li><code>503</code>服务端超负载</li>
+<li><code>504</code>作为网关或者代理时，为及时从远端获取请求</li>
+</ul>
+<h3 id="Head-头部字段"><a href="#Head-头部字段" class="headerlink" title="Head 头部字段"></a>Head 头部字段</h3><h4 id="通用字段"><a href="#通用字段" class="headerlink" title="通用字段"></a>通用字段</h4><ul>
+<li><code>Cache-Control:max-age=3600</code></li>
+<li><code>Connection: keep-alive</code></li>
+<li><code>Date</code> 获得服务端时间</li>
+</ul>
+<h4 id="请求头字段"><a href="#请求头字段" class="headerlink" title="请求头字段"></a>请求头字段</h4><ul>
+<li><code>Accept</code>客户端可接受媒体类型</li>
+<li><code>Accept-Encoding</code>客户端可接受的压缩类型</li>
+<li><code>Accept-Language</code></li>
+<li><code>Host</code>域名及端口号，不包含协议</li>
+<li><code>If-Match</code>协商缓存标识</li>
+<li><code>If-Modified-Since</code>协商缓存标识</li>
+<li><code>Referer</code>请求来源于哪里</li>
+<li><code>User-Agent</code>客户端信息，没有跨域限制</li>
+<li><code>Cookie</code><strong>存在跨域限制，只有同源才会传递</strong></li>
+</ul>
+<h4 id="响应头字段"><a href="#响应头字段" class="headerlink" title="响应头字段"></a>响应头字段</h4><ul>
+<li><code>Age</code>缓存持续时长，<code>Age:300</code>表明该资源是300s之前创建与<code>Cache-Control:max-age</code> 比对</li>
+<li><code>ETag</code>服务器为资源分配的<strong>唯一</strong>标识，资源更新也会随之更新，用于协商缓存，对应<code>If-Match</code></li>
+<li><code>Location</code>重定向地址，当状态码为<code>3xx</code>时</li>
+<li><code>Server</code>服务器信息</li>
+<li><code>Set-Cookie</code>本次请求中服务端设置的cookie信息</li>
+</ul>
+<h3 id="TCP-三次握手流程"><a href="#TCP-三次握手流程" class="headerlink" title="TCP 三次握手流程"></a>TCP 三次握手流程</h3><ol>
+<li>客户端发送 syn 包到服务器，进入 syn_send 状态，syn 意为同步序列号</li>
+<li>服务器收到 syn 包进行确认，同时也发送一个 SYN 包（SYN + ACK）进入 SYN_RECV 状态</li>
+<li>客户端接收到服务器的 SYN + ACK 包，向服务器发送确认包 ACK ，发送完毕后，客户端今儿服务器进入 连接成功状态，完成三次握手</li>
+</ol>
+<h3 id="为何要三次握手"><a href="#为何要三次握手" class="headerlink" title="为何要三次握手"></a>为何要三次握手</h3><p>在第二次握手后，若客户端没有收到回应，客户端认为链接没有建立，而服务端在发送完后会认为链接已经成立，并保存必要资源，入遇大量此类情况，会导致服务器崩溃。</p>
+<h3 id="TCP-四次挥手"><a href="#TCP-四次挥手" class="headerlink" title="TCP 四次挥手"></a>TCP 四次挥手</h3><p>由于 TCP 为全双工，因此每个方向都需要单独进行关闭，当一方完成数据发送任务后可发送一个 FIN 来终止这个方向上的连接，另一方接收到 FIN 信号知晓这一方向不再有数据流，但自身仍能发送数据，首先进行关闭的一方执行主动关闭，另一方则是被动关闭</p>
+<ol>
+<li>客户端发送一个 FIN，终止客户端到服务器的数据发送</li>
+<li>服务端收到该 FIN，返回一个 ACK，确认序号为收到序号加1，一个 FIN 占用一个序号</li>
+<li>服务端关闭与客户端连接，发送一个 FIN 给客户端</li>
+<li>客户端返回 ACK 确认，将确认序号设置为收到序号加1</li>
+</ol>
+<h3 id="为何四次挥手"><a href="#为何四次挥手" class="headerlink" title="为何四次挥手"></a>为何四次挥手</h3><p>因为服务端的LISTEN状态下的SOCKET当收到SYN报文的建连请求后，它可以把ACK和SYN (ACK起应答作用，而SYN起同步作用)放在一个报文里来发送。但关闭连接时，当收到对方的FIN报文通知时，它仅仅表示对方没有数据发送给你了；但未必你所有的数据都全部发送给对方了，所以你可以未必会马上会关闭SOCKET,也即你可能还需要发送一些数据给对方之后，再发送FIN报文给对方来表示你同意现在可以关闭连接了，所以它这里的ACK报文和FIN报文多数情况下都是分开发送的。</p>
+<h3 id="打开一个网址后发生了什么"><a href="#打开一个网址后发生了什么" class="headerlink" title="打开一个网址后发生了什么"></a>打开一个网址后发生了什么</h3><ol>
+<li>检查浏览器缓存、检查本地 hosts 文件是否存在这个网址映射，如果有，调用这个 IP 地址映射，解析完成</li>
+<li>如果没有，则查找本地 DNS 解析器缓存是否有这个网址映射，如果有，返回映射，解析完成</li>
+<li>如果没有，则查找填写或分配的的首选本地 DNS 服务器，检查要该域名是否包含在本地配置区域资源中：是，返回解析结果，查询结束，此解析具有权威性；否，但服务器缓存了此网址映射关系，返回解析结果，查询结束，此解析不具有权威性</li>
+<li>如果本地 DNS 服务器失效，则采取两种方式：</li>
+</ol>
+<ul>
+<li>转发模式-迭代：本地 DNS 将请求发送到13台根 DNS 服务器，判断由谁管理并返回一个负责该顶级域名服务器的 IP ，本地 DNS 服务器收到该 IP 后向其发送请求，该服务器如果无法解析，则继续找负责这个域名的下一级 DNS 服务器，直到找到映射，见解析结果返回本地 DNS 服务器，由本地 DNS 服务器返回解析结果，解析完成</li>
+<li>转发模式-递归：DNS 服务器将请求妆发至上一级 DNS 服务器，如果上一级 DNS 服务器不能解析，则继续向上请求。最终得到解析结果</li>
+</ul>
+<ol start="5">
+<li>得到目标服务器 IP 及端口号后，调用系统库函数 socket 请求一个 TCP 流套接字，客户端向服务器发送 HTTP 请求报文</li>
+<li>服务端解析请求报文，发送响应报文</li>
+<li>关闭连接，TCP 四次挥手</li>
+<li>客户端解析响应，渲染 DOM，CSSOM，合并树，显示 HTML</li>
+</ol>
+<h3 id="TCP-IP-五层模型"><a href="#TCP-IP-五层模型" class="headerlink" title="TCP/IP 五层模型"></a>TCP/IP 五层模型</h3><ol>
+<li>应用层：客户端发送HTTP请求报文。</li>
+<li>传输层：(加入源端口、目的端口)建立连接。实际发送数据之前，三次握手客户端和服务器建立起一个TCP连接。</li>
+<li>网络层：(加入IP头)路由寻址。</li>
+<li>数据链路层：(加入frame头)传输数据。</li>
+<li>物理层：物理传输bit。</li>
+</ol>
+<h3 id="OSI-七层模型"><a href="#OSI-七层模型" class="headerlink" title="OSI 七层模型"></a>OSI 七层模型</h3><ol>
+<li>应用层</li>
+<li>表示层</li>
+<li>会话层</li>
+<li>传输层</li>
+<li>网络层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ol>
+<h3 id="七层-五层模型应用"><a href="#七层-五层模型应用" class="headerlink" title="七层/五层模型应用"></a>七层/五层模型应用</h3><ol>
+<li>应用层：TCP【HTTPS（万维网）、HTTP、TELNET（远程终端接入）、FTP（文件传输）、SMTP/POP3（电子邮件）】、UDP【TFTP（文件传输）、DNS（域名转换）】、</li>
+<li>表示层：LPP、NBSSP</li>
+<li>会话层：SSL、TLS、DAP、LDAP</li>
+<li>传输层：TCP、UDP</li>
+<li>网络层：IP、ICMP、RIP、IGMP、OSPF</li>
+<li>数据链路层：以太网、网卡，交换机、令牌环、PPP、PPTP、L2TP、ARP、ATMP</li>
+<li>物理层：物理线路，光线，无线电</li>
+</ol>
+<h3 id="GET、POST-区别"><a href="#GET、POST-区别" class="headerlink" title="GET、POST 区别"></a>GET、POST 区别</h3><ul>
+<li>GET 只能进行 URL 编码；POST 多种编码方式</li>
+<li>GET 存在缓存；POST 无</li>
+<li>GET 通过 URL 传递数据，但长度存在限制</li>
+</ul>
+<h3 id="TCP、UDP-区别"><a href="#TCP、UDP-区别" class="headerlink" title="TCP、UDP 区别"></a>TCP、UDP 区别</h3><ul>
+<li>TCP 面向连接；UDP 无连接</li>
+<li>TCP 提供可靠服务，保证无差错，不丢失，有序到达；UDP 尽最大努力传输，不保证可靠性</li>
+<li>TCP 面向字节流，把数据当作一连串无结构字节流；UDP 面向报文，应用层发送多长的报文 UDP 就照样发送，没有拥塞控制，及时网络出现阻塞，也不会使原主机发送速率降低</li>
+<li>TCP 仅支持点到点；UDP 支持一对一，一对多，多对一，多对多</li>
+<li>TCP 首部开销20字节，UDP 仅8字节</li>
+<li>TCP 的逻辑通信信道是全双工可靠信道，UDP 则是不可靠信道</li>
+</ul>
+<h3 id="TCP-为什么可靠"><a href="#TCP-为什么可靠" class="headerlink" title="TCP 为什么可靠"></a>TCP 为什么可靠</h3><ul>
+<li>确认重传机制</li>
+<li>数据排序</li>
+<li>流量控制</li>
+<li>拥塞控制：慢启动，拥塞避免，快速重传，快速恢复</li>
+</ul>
+<h3 id="IP-地址分类"><a href="#IP-地址分类" class="headerlink" title="IP 地址分类"></a>IP 地址分类</h3><ul>
+<li>A类：0.0.0.0-126.255.255.255，默认网络掩码为：255.0.0.0，A类地址分配给规模特别大的网络使用，</li>
+<li>B类：128.0.0.0-191.255.255.255，默认网络掩码为歎：255.255.0.0，B类地址分配给一般的中型网络</li>
+<li>C类：192.0.0.0-223.255.255.255，默认网络掩码是：255.255.255.0，C类地址分配给小型网络，如局域网</li>
+<li>D类：广播地址，共特殊协议向选定的节点发送信息使用。</li>
+</ul>
+</div><div class="tags"><a href="/tags/http/">http</a></div><div class="post-nav"><a href="/2021/06/30/ajax核心xmlhttprequest/" class="pre">Ajax核心XMLHttpRequest</a><a href="/2021/03/07/力扣学习题目20210307/" class="next">力扣学习题目20210307</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C#</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动通信/">移动通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/ajax/" style="font-size: 15px;">ajax</a> <a href="/tags/csp/" style="font-size: 15px;">csp</a> <a href="/tags/cmd/" style="font-size: 15px;">cmd</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/css3/" style="font-size: 15px;">css3</a> <a href="/tags/ecma/" style="font-size: 15px;">ecma</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/欢迎/" style="font-size: 15px;">欢迎</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/homebrew/" style="font-size: 15px;">homebrew</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/jquery/" style="font-size: 15px;">jquery</a> <a href="/tags/异步/" style="font-size: 15px;">异步</a> <a href="/tags/lcd/" style="font-size: 15px;">lcd</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/anaconda/" style="font-size: 15px;">anaconda</a> <a href="/tags/jupyter/" style="font-size: 15px;">jupyter</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/mongoDB/" style="font-size: 15px;">mongoDB</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/c/" style="font-size: 15px;">c#</a> <a href="/tags/axios/" style="font-size: 15px;">axios</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/leetcode/" style="font-size: 15px;">leetcode</a> <a href="/tags/wordpress/" style="font-size: 15px;">wordpress</a> <a href="/tags/minecraft/" style="font-size: 15px;">minecraft</a> <a href="/tags/qualcomm/" style="font-size: 15px;">qualcomm</a> <a href="/tags/通信/" style="font-size: 15px;">通信</a> <a href="/tags/http/" style="font-size: 15px;">http</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.zealer.com" title="zealer" target="_blank">zealer</a><ul></ul><a href="http://www.ifanr.com" title="ifanr" target="_blank">ifanr</a><ul></ul><a href="http://cn.engadget.com" title="engadget" target="_blank">engadget</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© 2019 ♥ <a href="/." rel="nofollow">kirs.</a> Proudly Powered by<a rel="nofollow" target="_blank" href="https://blog.yeardany.com"> yeardany.</a></div></div></div><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><script type="text/javascript" src="../js/comment.js"></script><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
